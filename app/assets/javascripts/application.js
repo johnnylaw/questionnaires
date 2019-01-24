@@ -26,10 +26,6 @@ $(function() {
     var questionId = question.data('question-id');
     var questionnaireId = questionnaire.data('questionnaire-id');
 
-    // console.log('number', value)
-    // console.log('question', questionId)
-    // console.log('questionnaire', questionnaireId)
-
     $.ajax({
       url: '/questionnaires/' + questionnaireId + '/questions/' + questionId,
       method: 'PATCH',
@@ -37,9 +33,12 @@ $(function() {
     });
 
     var offset = -(questionId + 1) * questionsContainer[0].offsetWidth;
-    // console.log('offset', offset)
     questionsContainer.animate({ left: offset + 'px' })
   })
-})
 
-// (Response.average(:value) * 10).floor / 10.0
+  $('button[data-offset]').click(function() {
+    var responsesContainer = $(this).parents('.questions-container');
+    var offset = -($(this).data('offset') + 1) * responsesContainer[0].offsetWidth;
+    responsesContainer.animate({ left: offset + 'px' })
+  })
+})
