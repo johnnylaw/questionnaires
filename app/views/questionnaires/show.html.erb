@@ -1,0 +1,10 @@
+<div class="questionnaire-container" data-questionnaire-id="<%= @questionnaire.permalink %>">
+  <h1 class="questionnaire-title"><%= @questionnaire.title %></h1>
+  <h2 class="questionnaire-subtitle"><%= @questionnaire.subtitle %></h2>
+
+  <div class="questions-container">
+    <%= render @questionnaire.questions %>
+
+    <div class="pane">Thank you!</div>
+  </div>
+</div>

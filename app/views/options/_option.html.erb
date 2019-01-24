@@ -1,0 +1,9 @@
+<% id = SecureRandom.uuid %>
+<div>
+  <label for="<%= id %>"><%= option.name %></label>
+  <input
+        id="<%= id %>"
+        name="<%= "#{id}-#{option.numerical}" %>"
+        type="radio"
+        value="<%= option.numerical %>" />
+</div>
