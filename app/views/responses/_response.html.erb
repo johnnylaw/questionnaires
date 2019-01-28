@@ -1,0 +1,8 @@
+<div class="pane question-container" data-question-id="<%= response.number %>">
+  <p><%= response.question %></p>
+  <p class="response-average"><%= response.average %></p>
+  <div class="options-container">
+    <%= render partial: 'option_set', locals: { response: response } %>
+    <button type="button" data-offset="<%= response.number %>">Next</button>
+  </div>
+</div>

@@ -1,6 +1,35 @@
-class ResponseAverage < Struct.new(:question, :average, :number)
+class ResponsePresenter
+  def initialize(question)
+    @question = question
+  end
+
+  def average
+    @average ||= begin
+      normalized = (@question.responses.average(:value) - 1)
+      (normalized * 10).floor / 10.0
+    end
+  end
+
+  def number
+    @question.number
+  end
+
+  def question
+    @question.body
+  end
+
+  def option_set
+    @question.option_set
+  end
+
+  def by_option
+    option_set.options.map do |option|
+      [option.numerical, @question.responses.where(value: option.numerical).count]
+    end.to_h
+  end
+
   def to_partial_path
-    'responses/average'
+    'responses/response'
   end
 end
 
@@ -8,9 +37,8 @@ class ResponsesController < ApplicationController
   def index
     @questionnaire = Questionnaire.find_by permalink: params[:questionnaire_id]
     questions = @questionnaire.questions
-    @averages = questions.map do |question|
-      average = (Response.where(question: question).average(:value) * 10).floor / 10.0
-      ResponseAverage.new question.body, average, question.number
+    @responses = questions.map do |question|
+      ResponsePresenter.new question
     end
   end
 end

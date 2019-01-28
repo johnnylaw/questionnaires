@@ -1,0 +1,6 @@
+<% response.option_set.options.each do |option| %>
+  <div>
+    <label><%= option.name %></label>
+    <span><%= response.by_option[option.numerical] %></span>
+  </div>
+<% end %>
